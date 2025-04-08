@@ -41,6 +41,12 @@ export interface UserTrade {
   }
 }
 
+// Helper function to validate PocketBase ID
+export function isValidPocketBaseId(id: string): boolean {
+  // PocketBase IDs are typically 24 characters long and contain lowercase letters and numbers
+  return /^[a-z0-9]{24}$/.test(id);
+}
+
 // Helper functions to interact with PocketBase
 export async function getBooks() {
   try {

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BookCard } from "@/components/book-card"
-import { getUserByName, getUserTradesByUserId, getFileUrl } from "@/lib/pocketbase"
+import { getUserByName, getUserTradesByUserId, getFileURL } from "@/lib/pocketbase"
 import { type Book } from "@/lib/pocketbase"
 
 interface ProfilePageProps {
@@ -15,7 +15,8 @@ interface ProfilePageProps {
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
   // Buscar el usuario por nombre
-  const user = await getUserByName(params.username)
+  const username = params.username
+  const user = await getUserByName(username)
 
   if (!user) {
     notFound()
@@ -27,7 +28,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
   // Generar URL de la imagen del usuario
   const imageUrl = user.imagen_usuario
-    ? getFileUrl("users", user.id, user.imagen_usuario)
+    ? getFileURL("users", user.id, user.imagen_usuario)
     : `/placeholder.svg?text=${user.nombre.charAt(0)}`
 
   return (

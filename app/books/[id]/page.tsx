@@ -14,7 +14,7 @@ interface BookPageProps {
 
 export default async function BookPage({ params }: BookPageProps) {
   // Esperar a que los parámetros estén disponibles
-  const { id } = await params
+  const { id } = params
   const book = await getBook(id)
 
   if (!book) {
