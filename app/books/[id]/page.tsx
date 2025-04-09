@@ -14,7 +14,7 @@ interface BookPageProps {
 
 export default async function BookPage({ params }: BookPageProps) {
   // Esperar a que los parámetros estén disponibles
-  const { id } = params
+  const { id } = await params
   const book = await getBook(id)
 
   if (!book) {
@@ -90,7 +90,7 @@ export default async function BookPage({ params }: BookPageProps) {
                     </p>
                   </div>
                   <Button asChild variant="outline" className="ml-auto">
-                    <Link href={`/profile/${bookOwner.id}`}>
+                    <Link href={`/profile/${bookOwner.nombre}`}>
                       Ver Perfil
                     </Link>
                   </Button>

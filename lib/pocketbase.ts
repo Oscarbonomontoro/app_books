@@ -1,7 +1,7 @@
 import PocketBase from "pocketbase"
 
 // Create a single PocketBase instance for the entire application
-export const pb = new PocketBase("http://127.0.0.1:8090")
+export const pb = new PocketBase("http://localhost:8090")
 
 // Types based on the PocketBase schema
 export interface User {
@@ -189,4 +189,5 @@ export function logout() {
 
 export function getFileURL(collectionId: string, recordId: string, fileName: string) {
   return pb.files.getURL(collectionId, recordId, fileName)
+  
 }

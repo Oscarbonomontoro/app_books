@@ -4,19 +4,22 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BookCard } from "@/components/book-card"
-import { getUserByName, getUserTradesByUserId, getFileURL } from "@/lib/pocketbase"
+import { getUserByName, getUserTradesByUserId, getFileURL, getUser } from "@/lib/pocketbase"
 import { type Book } from "@/lib/pocketbase"
 
 interface ProfilePageProps {
   params: {
     username: string
+    id?: string
   }
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
-  // Buscar el usuario por nombre
-  const username = params.username
-  const user = await getUserByName(username)
+  // Buscar el usuario por nombre o ID
+  const { username, id } = await params;
+const user = id 
+  ? await getUser(id)
+  : await getUserByName(username)
 
   if (!user) {
     notFound()
@@ -29,19 +32,22 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   // Generar URL de la imagen del usuario
   const imageUrl = user.imagen_usuario
     ? getFileURL("users", user.id, user.imagen_usuario)
-    : `/placeholder.svg?text=${user.nombre.charAt(0)}`
+    : `/placeholder.svg?text=${encodeURIComponent(user.nombre.charAt(0))}`;
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col gap-8">
         <div className="flex items-center gap-6">
           <div className="relative w-32 h-32">
-            <Image
-              src={imageUrl}
-              alt={user.nombre}
-              fill
-              className="rounded-full object-cover"
-            />
+            {imageUrl && (
+              <Image
+                src={imageUrl}
+                alt={user.nombre}
+                fill
+                className="rounded-full object-cover"
+                sizes="(max-width: 768px) 100vw, 128px"
+              />
+            )}
           </div>
           <div>
             <h1 className="text-3xl font-bold mb-2">{user.nombre}</h1>
