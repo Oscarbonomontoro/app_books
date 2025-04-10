@@ -12,7 +12,11 @@ type Book = {
   titulo: string;
   autor: string;
   categoria: string;
-  // Add other properties as needed
+  //resto de propiedades añadidas
+  descripcion: string;
+  observaciones: string;
+  created: string;
+  updated: string;
 }
 
 export default function BooksPage() {
