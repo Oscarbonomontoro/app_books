@@ -40,7 +40,7 @@ export default async function BookPage({ params }: BookPageProps) {
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="aspect-[3/4] relative rounded-lg overflow-hidden">
-          <Image src={imageUrl || "/placeholder.svg"} alt={book.titulo} fill className="object-cover" />
+          <Image src={imageUrl || "/placeholder.svg"} alt={book.titulo} fill className="object-contain" />
         </div>
 
         <div>

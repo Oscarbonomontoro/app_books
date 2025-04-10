@@ -17,7 +17,7 @@ export function BookCard({ book }: BookCardProps) {
   return (
     <Card className="overflow-hidden">
       <div className="aspect-[3/4] relative">
-        <Image src={imageUrl || "/placeholder.svg"} alt={book.titulo} fill className="object-cover" />
+        <Image src={imageUrl || "/placeholder.svg"} alt={book.titulo} fill className="object-contain" />
       </div>
       <CardContent className="p-4">
         <h3 className="font-bold text-lg line-clamp-1">{book.titulo}</h3>
