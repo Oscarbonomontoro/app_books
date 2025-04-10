@@ -7,11 +7,29 @@ import { getBooks } from "@/lib/pocketbase"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-export default async function BooksPage() {
+type Book = {
+  id: string;
+  titulo: string;
+  autor: string;
+  categoria: string;
+  // Add other properties as needed
+}
+
+export default function BooksPage() {
   const searchParams = useSearchParams()
-  const books = await getBooks()
+  const [books, setBooks] = useState<Book[]>([] as Book[]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState("")
+
+  // Cargar libros al montar el componente
+  useEffect(() => {
+    const fetchBooks = async () => {
+      const fetchedBooks = await getBooks()
+      setBooks(fetchedBooks)
+    }
+    
+    fetchBooks()
+  }, [])
 
   // Set initial category from URL if present
   useEffect(() => {
