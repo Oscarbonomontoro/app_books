@@ -188,6 +188,14 @@ export function logout() {
 }
 
 export function getFileURL(collectionId: string, recordId: string, fileName: string) {
-  return pb.files.getURL(collectionId, recordId, fileName)
+  // Log para verificar los parámetros recibidos
+  console.log(`Fetching URL for: ${collectionId}, ${recordId}, ${fileName}`);
   
+  // Obtener la URL del archivo
+  const url = pb.files.getURL({ id: recordId, collectionId }, fileName);
+  
+  // Log para verificar la URL generada
+  //console.log(`Generated URL: ${url}`);
+  
+  return url;
 }
